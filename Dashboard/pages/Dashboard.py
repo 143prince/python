@@ -10,7 +10,6 @@ df = sns.load_dataset('titanic')
 #Set the title of the page 
 st.title('Titanic Data Analysis')
 
-
 st.sidebar.header("Filter Option")
 
 #gender filter 
@@ -37,6 +36,24 @@ filtered_data = df[
     (df['age'] <=max_age)
 ]
 st.dataframe(filtered_data)
+
+# Create a pie chart for gender distribution 
+st.subheader('Gender Distribution')
+gender_count = filtered_data['sex'].value_counts()
+fig = px.pie(names=gender_count.index, values=gender_count.values,
+             title='Gender Distribution')
+st.plotly_chart(fig)
+
+# Create a histogram for age distribution 
+st.subheader('Age Distribution')
+fig = px.histogram(filtered_data, x='age', nbins=20, title='Age Distribution',
+                   labels={'age':'Age', 'count':'Count'})
+st.plotly_chart(fig)
+
+#Violin plot of age distribution by survival status
+#Scatter plot of age vs fare 
+#Box plot of age distribution by passenger class
+#bar chart of servival counts 
 
 
 
